@@ -17,11 +17,8 @@ let solve a b c =
 let circleArea radius =
     Math.PI * radius * radius
 
-let multiplyAreaHeight area height =
-    area * height
-
-let cylinderVolume =
-    circleArea >> multiplyAreaHeight
+let cylinderVolume radius height=
+    (circleArea radius) * height
 
 
 [<EntryPoint>]
