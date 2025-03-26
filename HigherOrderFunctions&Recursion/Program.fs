@@ -115,10 +115,16 @@ let maxPrimeDivisor n =
             findMaxDivisor acc (current - 1)
     findMaxDivisor 0 (abs n / 2)
 
+let productOfDigitsNotDivBy5 n =
+    let condition digit = digit % 5 <> 0
+    let operation product digit = product * digit
+    numberTraversalWithCondition (abs n) operation 1 condition
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
     let number = Console.ReadLine() |> int
     
     Console.WriteLine($"Max prime divisor of {number}: {maxPrimeDivisor number}")
+    Console.WriteLine($"Product of digits of {number} not divisible by 5: {productOfDigitsNotDivBy5 number}")
     0
