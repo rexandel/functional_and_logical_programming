@@ -81,18 +81,18 @@ let traverseCoprimes number operation initialValue =
             loop n op updatedAcc (current - 1)
     loop number operation initialValue number
 
+let eulerFunction number =
+    traverseCoprimes number (fun x y -> x + 1) 0
+
 [<EntryPoint>]
 let main argv =
-    Console.WriteLine($"Sum of digits of number: {numberTraversal 465 (fun x y -> (x + y)) 0}")
-    Console.WriteLine($"Product of digits of number: {numberTraversal 465 (fun x y -> (x * y)) 1}")
-    Console.WriteLine($"Minimum digit of number: {numberTraversal 465 (fun x y -> if x < y then x else y) 10}")
-    Console.WriteLine($"Maximum digit of number: {numberTraversal 465 (fun x y -> if x > y then x else y) -1}")
-    Console.WriteLine()
-    Console.WriteLine($"Sum of digits larger than 4: {numberTraversalWithCondition 4562 (fun x y -> (x + y)) 0 (fun z -> z > 4)}")
-    Console.WriteLine($"Product of digits less than 5: {numberTraversalWithCondition 4562 (fun x y -> (x * y)) 1 (fun z -> z < 5)}")
-    Console.WriteLine($"Maximum even digit of number: {numberTraversalWithCondition 4562 (fun x y -> if x > y then x else y) 0 (fun z -> z % 2 = 0)}")
+    Console.Write("Input a number: ")
+    let number = Console.ReadLine() |> int
     
-    askAboutFavouriteLangLanguageUsingSuperposition()
+    Console.WriteLine($"Sum of mutually prime numbers with {number}: {traverseCoprimes number (+) 0}")
+    Console.WriteLine($"Mult of mutually prime numbers with {number}: {traverseCoprimes number (*) 1}")
+    Console.WriteLine($"Max of mutually prime numbers with {number}: {traverseCoprimes number (fun x y -> if x > y then x else y) 0}")
+
     Console.WriteLine()
-    askAboutFavouriteLangLanguageUsingCurry ()
+    Console.WriteLine($"Euler function of {number}: {eulerFunction number}")
     0
