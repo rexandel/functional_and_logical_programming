@@ -28,7 +28,15 @@ let taskNumberSix flag =
         | true -> sumOfDigitsDown
         | false -> fibDown
 
+let rec numberTraversal num (func: int->int->int) acc = 
+     match num with
+        | 0 -> acc
+        | n -> numberTraversal (n / 10) func (func acc (n % 10))
+
 [<EntryPoint>]
 let main argv =
-    Console.WriteLine((taskNumberSix false) 19)
+    Console.WriteLine($"Sum of digits of number: {numberTraversal 465 (fun x y -> (x + y)) 0}")
+    Console.WriteLine($"Product of digits of number: {numberTraversal 465 (fun x y -> (x * y)) 1}")
+    Console.WriteLine($"Minimum digit of number: {numberTraversal 465 (fun x y -> if x < y then x else y) 10}")
+    Console.WriteLine($"Maximum digit of number: {numberTraversal 465 (fun x y -> if x > y then x else y) -1}")
     0
