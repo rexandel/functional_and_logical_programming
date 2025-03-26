@@ -44,6 +44,15 @@ let rec numberTraversalWithCondition num (func: int->int->int) acc (condition: i
                 | false -> numberTraversalWithCondition nextNumber func acc condition
                 | true -> numberTraversalWithCondition nextNumber func (func acc digit) condition
 
+let favouriteProgrammingLanguage language =
+    match language with
+        | "F#" | "Prolog" -> Console.WriteLine("Sneaky one...")
+        | "Assembly" | "C" -> Console.WriteLine("Hardcore programmer!")
+        | "Haskell" -> Console.WriteLine("Are you a fan of functional languages?")
+        | "Python" -> Console.WriteLine("Practical choice!")
+        | _ -> Console.WriteLine("Don't know that one...")
+
+
 [<EntryPoint>]
 let main argv =
     Console.WriteLine($"Sum of digits of number: {numberTraversal 465 (fun x y -> (x + y)) 0}")
@@ -54,4 +63,8 @@ let main argv =
     Console.WriteLine($"Sum of digits larger than 4: {numberTraversalWithCondition 4562 (fun x y -> (x + y)) 0 (fun z -> z > 4)}")
     Console.WriteLine($"Product of digits less than 5: {numberTraversalWithCondition 4562 (fun x y -> (x * y)) 1 (fun z -> z < 5)}")
     Console.WriteLine($"Maximum even digit of number: {numberTraversalWithCondition 4562 (fun x y -> if x > y then x else y) 0 (fun z -> z % 2 = 0)}")
+
+    Console.WriteLine("What is your favorite programming language?")
+    let answer = Console.ReadLine() |> string
+    Console.WriteLine(favouriteProgrammingLanguage answer)
     0
