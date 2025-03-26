@@ -64,6 +64,23 @@ let askAboutFavouriteLangLanguageUsingCurry () =
         outputWriter processedResult
     pipeline Console.ReadLine favouriteProgrammingLanguage Console.WriteLine
 
+let rec gcd a b =
+    match b with
+    | 0 -> a
+    | _ -> gcd b (a % b)
+
+let traverseCoprimes number operation initialValue =
+    let rec loop n op acc current =
+        if current <= 0 then acc
+        else
+            let updatedAcc =
+                if gcd n current = 1 then
+                    op acc current
+                else
+                    acc
+            loop n op updatedAcc (current - 1)
+    loop number operation initialValue number
+
 [<EntryPoint>]
 let main argv =
     Console.WriteLine($"Sum of digits of number: {numberTraversal 465 (fun x y -> (x + y)) 0}")
