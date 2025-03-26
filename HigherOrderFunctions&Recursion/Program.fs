@@ -33,10 +33,25 @@ let rec numberTraversal num (func: int->int->int) acc =
         | 0 -> acc
         | n -> numberTraversal (n / 10) func (func acc (n % 10))
 
+let rec numberTraversalWithCondition num (func: int->int->int) acc (condition: int->bool) =
+    match num with
+        | 0 -> acc
+        | n -> 
+            let digit = n % 10
+            let nextNumber = n / 10
+            let flag = condition digit
+            match flag with
+                | false -> numberTraversalWithCondition nextNumber func acc condition
+                | true -> numberTraversalWithCondition nextNumber func (func acc digit) condition
+
 [<EntryPoint>]
 let main argv =
     Console.WriteLine($"Sum of digits of number: {numberTraversal 465 (fun x y -> (x + y)) 0}")
     Console.WriteLine($"Product of digits of number: {numberTraversal 465 (fun x y -> (x * y)) 1}")
     Console.WriteLine($"Minimum digit of number: {numberTraversal 465 (fun x y -> if x < y then x else y) 10}")
     Console.WriteLine($"Maximum digit of number: {numberTraversal 465 (fun x y -> if x > y then x else y) -1}")
+    Console.WriteLine()
+    Console.WriteLine($"Sum of digits larger than 4: {numberTraversalWithCondition 4562 (fun x y -> (x + y)) 0 (fun z -> z > 4)}")
+    Console.WriteLine($"Product of digits less than 5: {numberTraversalWithCondition 4562 (fun x y -> (x * y)) 1 (fun z -> z < 5)}")
+    Console.WriteLine($"Maximum even digit of number: {numberTraversalWithCondition 4562 (fun x y -> if x > y then x else y) 0 (fun z -> z % 2 = 0)}")
     0
