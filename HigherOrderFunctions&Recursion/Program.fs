@@ -120,6 +120,20 @@ let productOfDigitsNotDivBy5 n =
     let operation product digit = product * digit
     numberTraversalWithCondition (abs n) operation 1 condition
 
+let maxOddNonPrimeDivisor n =
+    let rec findMaxDivisor acc current =
+        if current <= 1 then acc
+        elif n % current = 0 && current % 2 <> 0 && not (isPrime current) && (acc = 0 || current > acc) then
+            findMaxDivisor current (current - 1)
+        else
+            findMaxDivisor acc (current - 1)
+    findMaxDivisor 0 (abs n)
+
+let gcdOfMaxOddNonPrimeAndDigitProduct n =
+    let maxDivisor = maxOddNonPrimeDivisor n
+    let product = productOfDigitsNotDivBy5 n
+    gcd maxDivisor product
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
@@ -127,4 +141,5 @@ let main argv =
     
     Console.WriteLine($"Max prime divisor of {number}: {maxPrimeDivisor number}")
     Console.WriteLine($"Product of digits of {number} not divisible by 5: {productOfDigitsNotDivBy5 number}")
+    Console.WriteLine($"GCD of largest odd non-prime divisor and digit product of {number}: {gcdOfMaxOddNonPrimeAndDigitProduct number}")
     0
