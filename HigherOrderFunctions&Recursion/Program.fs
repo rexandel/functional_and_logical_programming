@@ -84,6 +84,19 @@ let traverseCoprimes number operation initialValue =
 let eulerFunction number =
     traverseCoprimes number (fun x y -> x + 1) 0
 
+let traverseCoprimesCondition number (func: int->int->int) (condition: int->bool) initial =
+    let rec traversal number (func :int->int->int) (condition: int->bool) acc candidate =
+        match candidate with
+        | 0 -> acc
+        | _ ->
+            let nextCandidate = candidate-1
+            let isCoprime = if gcd number candidate = 1 then true else false
+            let flag = condition candidate
+            match flag, isCoprime with
+                | true, true -> traversal number func condition (func acc candidate) nextCandidate
+                | _, _ -> traversal number func condition acc nextCandidate
+    traversal number func condition initial number
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
@@ -95,4 +108,6 @@ let main argv =
 
     Console.WriteLine()
     Console.WriteLine($"Euler function of {number}: {eulerFunction number}")
+    Console.WriteLine()
+    Console.WriteLine($"Sum of even mutually prime numbers with {number}: {traverseCoprimesCondition number (+) (fun x -> (x % 2) = 0) 0}")
     0
