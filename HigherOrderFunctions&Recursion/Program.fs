@@ -97,17 +97,28 @@ let traverseCoprimesCondition number (func: int->int->int) (condition: int->bool
                 | _, _ -> traversal number func condition acc nextCandidate
     traversal number func condition initial number
 
+
+let isPrime n =
+    let rec check i =
+        if i * i > n then true
+        elif n % i = 0 then false
+        else check (i + 1)
+    if n <= 1 then false
+    else check 2
+
+let maxPrimeDivisor n =
+    let rec findMaxDivisor acc current =
+        if current <= 1 then acc
+        elif n % current = 0 && isPrime current && (acc = 0 || current > acc) then
+            findMaxDivisor current (current - 1)
+        else
+            findMaxDivisor acc (current - 1)
+    findMaxDivisor 0 (abs n / 2)
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
     let number = Console.ReadLine() |> int
     
-    Console.WriteLine($"Sum of mutually prime numbers with {number}: {traverseCoprimes number (+) 0}")
-    Console.WriteLine($"Mult of mutually prime numbers with {number}: {traverseCoprimes number (*) 1}")
-    Console.WriteLine($"Max of mutually prime numbers with {number}: {traverseCoprimes number (fun x y -> if x > y then x else y) 0}")
-
-    Console.WriteLine()
-    Console.WriteLine($"Euler function of {number}: {eulerFunction number}")
-    Console.WriteLine()
-    Console.WriteLine($"Sum of even mutually prime numbers with {number}: {traverseCoprimesCondition number (+) (fun x -> (x % 2) = 0) 0}")
+    Console.WriteLine($"Max prime divisor of {number}: {maxPrimeDivisor number}")
     0
