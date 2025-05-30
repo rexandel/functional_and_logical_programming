@@ -1,4 +1,125 @@
-bin
-obj
-.vs
+# Исключаем бинарные файлы и зависимости
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 *.sln
+
+# Файлы резервных копий
+*.bak
+*.tmp
+
+# Файлы пакетов
+packages/
+*.nupkg
+.nuget/
+
+# Результаты тестов
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Файлы сборки и публикации
+_ReSharper.*
+*.resharper
+*.DotSettings
+*.DotSettings.user
+
+# Файлы Rider
+.idea/
+*.idea
+*.sln.iml
+
+# Файлы Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Временные файлы
+*.swp
+*.swo
+
+# Файлы проектов F#
+.fake/
+.paket/
+paket-files/
+
+# Файлы проектов C#
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Файлы MSBuild
+*.msbuild
+*.log
+*.binlog
+
+# Файлы Azure
+*.azurepubxml
+*.pubxml
+
+# Файлы публикации
+publish/
+*.Publish.xml
+
+# Файлы SQL Server
+*.mdf
+*.ldf
+
+# Файлы Unity (если используются)
+[Tt]emp/
+[Ll]ibrary/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.unityproj
+*.booproj
+
+# Файлы макросов Visual Studio
+*.vsmdi
+*.testsettings
+
+# Файлы NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+# Файлы StyleCop
+StyleCop.Cache
+*.stylecop
+
+# Файлы dotCover
+*.dotCover
+
+# Файлы OpenCover
+opencover*.xml
+
+# Файлы TypeScript
+*.js.map
+*.js
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Файлы Python
+*.pyc
+*.pyo
+*.pyd
+
+# Файлы Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Файлы Docker
+docker-compose.override.yml
+
+# Файлы macOS
+.DS_Store
