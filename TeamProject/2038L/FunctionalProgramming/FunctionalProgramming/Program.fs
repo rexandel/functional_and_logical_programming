@@ -1,6 +1,5 @@
 ﻿open System
 
-// Все возможные способы нарезки одной доски 60 на части 18, 21 и 25
 let generateSingleBoardCuts() =
     seq {
         for cut18 in 0 .. (60 / 18) do
@@ -12,7 +11,6 @@ let generateSingleBoardCuts() =
                     yield (cut18, cut21, cut25)
     } |> Seq.distinct |> Seq.toList
 
-// Все возможные комбинации нарезки для заданного количества досок
 let rec generateCombinations boardsLeft currentCombination allCombinations singleCuts =
     if boardsLeft = 0 then
         currentCombination :: allCombinations
@@ -26,7 +24,6 @@ let rec generateCombinations boardsLeft currentCombination allCombinations singl
             generateCombinations (boardsLeft - 1) (Some newComb) acc singleCuts
         ) allCombinations
 
-// Проверяет, можно ли нарезать нужное количество досок
 let canCutBoards totalBoards n singleCuts =
     let allCombinations = generateCombinations totalBoards None [] singleCuts
     allCombinations
@@ -34,7 +31,6 @@ let canCutBoards totalBoards n singleCuts =
         | None -> false
         | Some (cut18, cut21, cut25) -> cut18 >= n && cut21 >= n && cut25 >= n)
 
-// Находит минимальное количество досок
 let findMinBoards n =
     let singleCuts = generateSingleBoardCuts()
     let upperBound = ceil(float (n * 18) / 60.0) + ceil(float (n * 21) / 60.0) + ceil(float (n * 25) / 60.0) |> int

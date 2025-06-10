@@ -1,4 +1,3 @@
-% Предикат для вычисления минимального количества досок
 calculate_boards(N, Result) :-
     (N =:= 1 -> Result = 2
     ;
@@ -26,6 +25,5 @@ calculate_boards(N, Result) :-
     Result is Result2 + FinalCalculation
     ).
 
-% Предикат для взаимодействия с пользователем
 min_boards(N, Result) :-
     calculate_boards(N, Result).
